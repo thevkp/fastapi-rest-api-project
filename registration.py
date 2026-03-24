@@ -86,8 +86,23 @@ def save_data(data):
     json.dump(data, f, indent=2)
     
     
+    
+@router.get("/")
+def home():
+    return {
+        "message": "Welcome to the FastAPI Task Manager API",
+        "description": "Backend service for user registration and task management.",
+        "endpoints": {
+            "register_user": "POST /users",
+            "create_task": "POST /tasks",
+            "get_tasks": "GET /tasks/{username}"
+        },
+        "docs": "/docs"
+    }
+    
+    
 @router.post('/create')
-def create_user(user: User):
+async def create_user(user: User):
   username= user.username.upper()
   
   data = load_data()

@@ -28,5 +28,11 @@
     "password": "Strong@123",
     "age": 22,
     "phone": "9876543210"
+  },
+  "STRING123": {
+    "email": "user@example.com",
+    "password": "sTring@12",
+    "age": 18,
+    "phone": "9382093989"
   }
 }
