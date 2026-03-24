@@ -108,17 +108,17 @@ def view_users():
 
 @router.get('/users/{username}')
 def view_user(username: str = Path(..., description="Username of the user as in DG", example="vishal123")):
-  uid = username.lower()
+  normalized_username = username.upper()
   
   users = load_data()
   
-  if uid not in users:
+  if normalized_username not in users:
     raise HTTPException(status_code=404, detail="User not found")
   
-  return users[uid]
+  return users[normalized_username]
     
 @router.post('/users')
-def create_user(user: User):
+def create_user(user: User, status_code=201):
   username= user.username.upper()
   
   data = load_data()
@@ -136,3 +136,19 @@ def create_user(user: User):
   save_data(data)
   
   return JSONResponse(status_code=201, content={"message":"User added"})
+
+
+@router.delete('/users/{username}')
+def delete_user(username: str = Path(..., description="Username of the user", example="vishal123")):
+  normalize_username = username.upper()
+  
+  users = load_data()
+  
+  if normalize_username not in users:
+    raise HTTPException(status_code=404, detail="User not found")
+  
+  del users[normalize_username]
+  
+  save_data(users)
+  
+  return {"message":"User deleted"}
