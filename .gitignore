@@ -1,9 +1,8 @@
 # Ignore data files
 *.json
 
-# Or more specific (better)
-users.json
-tasks.json
+# users.json
+# tasks.json
 
 # Python
 __pycache__/
