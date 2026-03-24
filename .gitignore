@@ -1,0 +1,13 @@
+# Ignore data files
+*.json
+
+# Or more specific (better)
+users.json
+tasks.json
+
+# Python
+__pycache__/
+*.pyc
+
+# Env
+.env
