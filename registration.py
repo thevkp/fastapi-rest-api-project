@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, APIRouter
+from fastapi import FastAPI, HTTPException, APIRouter, Path
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field, EmailStr, field_validator
 from typing import Literal, Annotated
@@ -105,9 +105,20 @@ def view_users():
   users = load_data()
   
   return users
+
+@router.get('/users/{username}')
+def view_user(username: str = Path(..., description="Username of the user as in DG", example="vishal123")):
+  uid = username.lower()
+  
+  users = load_data()
+  
+  if uid not in users:
+    raise HTTPException(status_code=404, detail="User not found")
+  
+  return users[uid]
     
 @router.post('/users')
-async def create_user(user: User):
+def create_user(user: User):
   username= user.username.upper()
   
   data = load_data()
