@@ -100,8 +100,13 @@ def home():
         "docs": "/docs"
     }
     
+@router.get('/users')
+def view_users():
+  users = load_data()
+  
+  return users
     
-@router.post('/create')
+@router.post('/users')
 async def create_user(user: User):
   username= user.username.upper()
   
